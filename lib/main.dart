@@ -1,5 +1,6 @@
 //packages
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 //library files
 import './quiz.dart';
 import './result.dart';
@@ -25,25 +26,53 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       "questionText": "What's your favorite colour?",
-      "answers": ["White", "Black", "Green", "Red"]
+      "answers": [
+        {"text": "White", "score": 1},
+        {"text": "Black", "score": 10},
+        {"text": "Green", "score": 3},
+        {"text": "Red", "score": 5}
+      ]
     },
     {
       "questionText": "What's your favorite animal?",
-      "answers": ["Dog", "Cat", "Bird", "Fish"]
+      "answers": [
+        {"text": "Dog", "score": 1},
+        {"text": "Cat", "score": 10},
+        {"text": "Bird", "score": 3},
+        {"text": "Fish", "score": 5}
+      ]
     },
     {
       "questionText": "What's your favorite vehicle?",
-      "answers": ["Car", "Bike", "Motorcycle", "Plane", "Boat"]
+      "answers": [
+        {"text": "Car", "score": 1},
+        {"text": "Bike", "score": 10},
+        {"text": "Motorcycle", "score": 3},
+        {"text": "Plane", "score": 5},
+        {"text": "Boat", "score": 4},
+      ]
     }
   ];
   var _questionIndex = 0;
-  void _answerQuestion() {
+  var _totalScore = 0;
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    _totalScore += score;
+
     if (_questionIndex < _questions.length) {
       setState(() {
         _questionIndex++;
       });
     }
 
+    print(score.toString());
     print(_questionIndex.toString());
     print('Answer chosen!');
   }
@@ -71,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                 questionIndex: _questionIndex,
                 selectHandler: _answerQuestion,
               )
-            : const Result(),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
