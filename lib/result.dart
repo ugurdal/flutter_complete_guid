@@ -37,7 +37,15 @@ class Result extends StatelessWidget {
           ElevatedButton(
             onPressed: resetHandler,
             child: const Text("Reset Quiz"),
-          )
+          ),
+          OutlinedButton(
+            onPressed: resetHandler,
+            style: OutlinedButton.styleFrom(
+              primary: Colors.orangeAccent,
+              shadowColor: Colors.purple,
+            ),
+            child: const Text("Reset Quiz"),
+          ),
         ],
       ),
     );
